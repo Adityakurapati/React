@@ -1,0 +1,112 @@
+ul{
+     list-style-type:none;
+     padding: 0 0 0.2rem 0.2rem;
+     width:100%;
+     display: flex !important;
+     flex-direction: row !important;
+     justify-content: center;
+     flex-wrap:wrap;
+     gap: 1.3rem;
+}
+ul li::before{
+     /* content: "\200B" ; */
+}
+.item-list{
+     display: grid;
+     place-items: center;
+     }
+.item ,.item-options{
+     display: flex;
+     flex-direction: column;
+     justify-content: flex-start;
+     align-items: center;
+     padding:0;
+     margin:0.25rem 0;
+     border-radius: 0.5rem;
+     width:20rem;
+     transition: all 0.7s;
+     margin-bottom: 1.2rem;
+}
+.item{
+     background-color: rgb(233, 223, 223);
+     overflow: hidden;
+     display: inline-flex;
+}
+.item-options{
+     flex-direction: row;
+     padding:0.4rem 5rem;   
+}
+.item-img{
+     width: 100%;
+    max-height: 13rem;
+    transition: all 0.9s;
+}
+.item-img:hover{
+     transform: scale(1.1);
+}
+.item:hover{
+     background: whitesmoke;
+     box-shadow: 1rem 1rem 1.5rem -.9rem rgba(0,0,0,0.25);
+     transform: scale3d(1.1);
+}
+.item input[type="checkbox"]{
+     text-align: center;
+     /* width:0.5rem; */
+     min-width: 20px;
+     height:2.5rem;
+     cursor:pointer;
+     margin-right: 0.9rem;
+}
+.item[type="checkbox"]:focus + label{
+     text-decoration: line-through;
+}
+.item > label{
+     font-size: 0.75rem;
+     flex-grow:1;
+     margin-bottom: 0.8rem;
+}
+.item svg{
+     width:48px;
+     min-width: 48px;
+     height: 36px;
+     font-size: 1rem;
+     color:steelblue;
+     cursor: pointer;
+     align-self: flex-end !important;
+     float: right;
+     transition: all 0.9s;
+}
+.item svg:focus, .item svg:hover{
+     color: red;
+     outline: none;
+}
+h2::selection{
+     color: chartreuse;
+     background-color: wheat !important;
+}
+.user-icon,.user-discount{
+     position: absolute !important;
+     top:0.3rem;
+     right:1rem;
+     display: flex;
+     flex-direction: column;
+}
+.user-discount{
+     right:4rem;
+     margin-right: 1rem;
+}
+.user-icon-logo,.user-discount-logo{
+     font-size: 2rem;
+     font-weight: bold;
+}
+.user-discount-logo{
+     color:red;
+}
+.book-nav{
+     padding: 1rem;
+     padding-left: 2rem;
+     position: fixed;
+     top: 0;
+     height: 2rem;
+     margin: 0;
+}

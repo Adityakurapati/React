@@ -9,8 +9,10 @@ body,html {
 }
 
 .App {
-  text-align: center;
-  background: linear-gradient(45deg, rgb(66, 34, 141),rgb(38, 92, 255),rgb(228, 16, 203),rgb(204, 30, 158));
+  /* text-align: center; */
+  /* background: linear-gradient(45deg, rgb(66, 34, 141),rgb(38, 92, 255),rgb(228, 16, 203),rgb(204, 30, 158)); */
+  background-color: #8f87a8;
+  /* background-color: rgb(143, 135, 168); */
   min-height:90vh;
 }
 
@@ -48,14 +50,17 @@ body,html {
   gap:1rem;
 }
 .G-Item{
-  background: rgba( 255, 255, 255, 0.25 );
+  /* background: rgba( 255, 255, 255, 0.25 );
 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 backdrop-filter: blur( 4px );
--webkit-backdrop-filter: blur( 4px );
+-webkit-backdrop-filter: blur( 4px );*/
 border-radius: 10px;
-border: 1px solid rgba( 255, 255, 255, 0.18 );
+/* border: 1px solid rgba( 255, 255, 255, 0.18 );  */
+/* background-color: rgba(203, 203, 203, 0.792); */
 margin:3rem;
+padding:2rem;
 }
+
 .G-img{
   min-width: 14rem;
   min-height: 12rem;
@@ -90,5 +95,9 @@ ul>li{
   display: flex;
   flex-direction: column; 
   gap: .8rem; 
+  padding:1rem;
   
+}
+.list{
+  text-align:left;
 }
