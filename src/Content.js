@@ -1,55 +1,28 @@
 import React from "react";
 import './index.css';
 import './dave.css';
-import { useState } from 'react';
-import { FaTrashAlt } from 'react-icons/fa'
-
+import ItemsList from './ItemsList';
 
 const styles1={
         padding: '.8rem',
         borderRadius: '.6rem',
         marginBottom: '0.9rem'
 };
-const Content=( { items, setItems, handleCheck, handleDelete } ) =>
-{
-        return ( <main className='G-List'>
-
-                <article className='G-Item'>
-                        { ( items.length )? (
-                                <ul className="item-list">
-                                        { items.map( ( item ) => (
-                                                <li key={ item.id } className="item">
-                                                        <img src={ item.link } className="item-img" />
-                                                        <div className="item-options">
-                                                                <input type="checkbox"
-                                                                        onChange={ () => handleCheck( item.id ) }
-                                                                        checked={ item.checked } />
-                                                                <label
-                                                                        onDoubleClick={ () => handleCheck( item.id ) }
-                                                                        style={
-                                                                                ( item.checked )? { textDecoration: 'line-through' }:null
-                                                                        }>
-                                                                        { item.item }
-                                                                </label>
-
-                                                                <FaTrashAlt
-                                                                        role="button"
-                                                                        tabIndex="0"
-                                                                        className="deleteBtn"
-                                                                        onClick={ () => handleDelete( item.id ) } />
-                                                        </div>
-                                                </li>
-                                        ) ) }
-                                </ul>
-                        ):
-                                (
-                                        <h2>List Is Empty</h2>
-                                )
-                        }
-                </article>
-        </main>
-        );
-}
+const Content=( { items, handleCheck, handleDelete } ) => ( <main className='G-List'>
+        <article className='G-Item'>
+                { ( items.length )? (
+                        <ItemsList
+                                items={ Array.from( items ) }
+                                handleCheck={ handleCheck }
+                                handleDelete={ handleDelete } />
+                ):
+                        (
+                                <h2>List Is Empty</h2>
+                        )
+                }
+        </article>
+</main>
+);
 export default Content;
 
 

@@ -10,15 +10,22 @@ const headerStyle={
      width: "100%",
      zIndex: '10'
 };
-const Header=( { title } ) => (
+const Header=( { title, length } ) => (
      <header style={ headerStyle }>
-          <div className='user-discount'>
-               <i class="uil uil-ticket user-discount-logo"></i>
-               <label title='Hey You Got Coupon Of Rs400 .. Book Now Any Movie'>400/-</label>
-          </div>
-          <div className='user-icon'>
-               <i class="uil uil-user-circle user-icon-logo"></i>
-               <label>Guest</label>
+          <div className='user-options'>
+               <div className='movie-count user-item'>
+                    <i class="uil uil-bright movie-count-logo">
+                    </i>
+                    <label> { length }</label>
+               </div>
+               <div className='user-discount user-item'>
+                    <i class="uil uil-ticket user-discount-logo"></i>
+                    <label title='Hey You Got Coupon Of Rs400 .. Book Now Any Movie'>400/-</label>
+               </div>
+               <div className='user-icon user-item'>
+                    <i class="uil uil-user-circle user-icon-logo"></i>
+                    <label>Guest</label>
+               </div>
           </div>
           <h1 style={ {
                padding: '1rem',

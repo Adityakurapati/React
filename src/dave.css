@@ -84,20 +84,24 @@ h2::selection{
      color: chartreuse;
      background-color: wheat !important;
 }
-.user-icon,.user-discount{
+.user-options{
      position: absolute !important;
      top:0.3rem;
      right:1rem;
      display: flex;
-     flex-direction: column;
-}
-.user-discount{
-     right:4rem;
-     margin-right: 1rem;
-}
-.user-icon-logo,.user-discount-logo{
-     font-size: 2rem;
+     flex-direction: row;
      font-weight: bold;
+     gap: 1rem;
+     font-size: 1.3rem;
+     min-height: inherit;
+     justify-content: center;
+     align-items: center;
+}
+.user-item{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
 }
 .user-discount-logo{
      color:red;

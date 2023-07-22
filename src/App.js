@@ -63,6 +63,7 @@ const App=() =>
     },
   ] );
 
+
   const handleCheck=( key ) =>
   {
     const listItems=items.map( item => item.id===key? { ...item, checked: !item.checked }:item );
@@ -78,10 +79,10 @@ const App=() =>
   return (
     <div className='App'>
       <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"></link>
-      <Header />
+      <Header title="BookMyShoww" length={ items.length } />
       <Content
         items={ items }
-        setItems={ setItems }
+        // setItems={ setItems }
         handleCheck={ handleCheck }
         handleDelete={ handleDelete }
       />
