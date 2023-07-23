@@ -114,7 +114,10 @@ const App=() =>
         search={ search }
         setSearch={ setSearch } />
       <Content
-        items={ items }
+        items={ items.filter( item => ( item.item )
+          .toLowerCase()
+          .includes( search.toLowerCase() ) )
+        }
         // setItems={ setItems }
         handleCheck={ handleCheck }
         handleDelete={ handleDelete }
