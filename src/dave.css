@@ -114,3 +114,36 @@ h2::selection{
      height: 2rem;
      margin: 0;
 }
+form{
+     position: absolute;
+     top:4.4rem;
+     background:white;
+     display: flex;
+     flex-direction:row;
+     gap:0.8rem;
+     padding:.9rem;
+     width:100vw;
+     margin:0 auto;
+     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+form>label{
+     text-align: center;
+     font-weight: 900;
+     margin:auto 0;
+}
+form>input{
+     padding:.6rem;
+     background-color: rgb(242, 239, 239);
+     flex-grow: 30%;
+}
+form>button{
+     background:green;
+     padding:auto 1.2rem;
+}
+.search-box{
+     position: relative;
+     display: inline-block;
+     width: fit-content;
+     background:transparent;
+     top:auto;
+}

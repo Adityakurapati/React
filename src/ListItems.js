@@ -1,7 +1,8 @@
 import { FaTrashAlt } from 'react-icons/fa';
 
 const ListItems=( { item, handleCheck, handleDelete } ) => (
-     <li key={ item.id } className="item">
+     <li className="item">
+          {/* key={ item.id }  */ }
           <img src={ item.link } className="item-img" />
           <div className="item-options">
                <input type="checkbox"

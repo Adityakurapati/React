@@ -1,5 +1,5 @@
 import React from 'react';
-
+import SearchItem from './SearchItem';
 const headerStyle={
      backgroundColor: '#2b3246',
      color: '#fff',
@@ -10,9 +10,12 @@ const headerStyle={
      width: "100%",
      zIndex: '10'
 };
-const Header=( { title, length } ) => (
+const Header=( { title, length, search, setSearch } ) => (
      <header style={ headerStyle }>
           <div className='user-options'>
+               <SearchItem
+                    search={ search }
+                    setSearch={ setSearch } />
                <div className='movie-count user-item'>
                     <i class="uil uil-bright movie-count-logo">
                     </i>

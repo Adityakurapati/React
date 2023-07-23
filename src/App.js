@@ -4,9 +4,13 @@ import Header from './Header';
 import Content from './Content';
 import { useState } from 'react';
 import Footer from './Footer';
+import AddItem from './AddItem';
+import SearchItem from './SearchItem';
+
+
 const App=() =>
 {
-  const [ items, setItems ]=useState( [
+  var list=[
     {
       id: 1,
       checked: false,
@@ -61,30 +65,64 @@ const App=() =>
       link: "https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@star-icon-202203010609.png,ox-24,oy-615,ow-29:ote-OS4yLzEwICA2NS44SyBWb3Rlcw%3D%3D,ots-29,otc-FFFFFF,oy-612,ox-70:q-80/et00329481-bcufavugyg-portrait.jpg",
       item: "Misson Impossible"
     },
-  ] );
+  ];
+  // states 
+  const [ items, setItems ]=useState( list );
+  // const [ items, setItems ]=useState( JSON.parse( localStorage.getItem('MovieList'));
+  const [ newItem, setNewItem ]=useState( '' );
 
+  const [ search, setSearch ]=useState( '' );
+  // Handling Functions
 
+  const setAndSaveItems=( newItems ) =>
+  {
+    setItems( newItems );
+    localStorage.setItem( 'MovieList', JSON.stringify( newItems ) )
+  }
+  const addItem=( item ) =>
+  {
+    const id=items.length? items[ items.length-1 ].id+1:1;
+    const myNewItem={ id: id, checked: false, item: item };
+    const listItems=[ ...items, myNewItem ];
+    setAndSaveItems( listItems )
+  }
   const handleCheck=( key ) =>
   {
     const listItems=items.map( item => item.id===key? { ...item, checked: !item.checked }:item );
-    setItems( listItems );
-    localStorage.setItem( 'shoppingList', JSON.stringify( listItems ) )
-
+    setAndSaveItems( listItems )
   }
   const handleDelete=( key ) =>
   {
     const listItems=items.filter( item => item.id!=key );
-    setItems( listItems );
+    setAndSaveItems( listItems )
   }
+  const handleSubmit=( e ) =>
+  {
+    e.preventDefault();
+    if ( !newItem ) return
+    // Add New Item
+    addItem( newItem );
+    setNewItem( '' );
+  }
+
   return (
     <div className='App'>
       <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"></link>
-      <Header title="BookMyShoww" length={ items.length } />
+      <Header
+        title="BookMyShoww"
+        length={ items.length }
+        search={ search }
+        setSearch={ setSearch } />
       <Content
         items={ items }
         // setItems={ setItems }
         handleCheck={ handleCheck }
         handleDelete={ handleDelete }
+      />
+      <AddItem
+        newItem={ newItem }
+        setNewItem={ setNewItem }
+        handleSubmit={ handleSubmit }
       />
       <Footer />
     </div>
