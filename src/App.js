@@ -1,12 +1,20 @@
-import logo from './logo.svg';
-import './index.css';
-import Header from './Header';
-import Content from './Content';
-import { useState } from 'react';
-import Footer from './Footer';
-import AddItem from './AddItem';
-import SearchItem from './SearchItem';
 
+// Imports 
+import './css/index.css';
+import Header from './components/Header';
+import Content from './components/Content';
+import Footer from './components/Footer';
+import AddItem from './components/AddItem';
+import { useState, useEffect } from 'react';
+
+
+//  Snipet - Ctrl + Alt + R
+
+// Functional Components  => Components Was Created Broke Down Into Functions And All Components Are Injected Into DOm 
+// JSX = JS In XML (Allows To Put javascript Expression Into Code ) 
+// JSX Render as String => {[1,2,3]}.. 123
+// Object  Was Not Rendered In JSX and Booleans Was Same 
+// {} commented
 
 const App=() =>
 {
@@ -66,35 +74,48 @@ const App=() =>
       item: "Misson Impossible"
     },
   ];
+
   // states 
-  const [ items, setItems ]=useState( list );
-  // const [ items, setItems ]=useState( JSON.parse( localStorage.getItem('MovieList'));
+  // const [ items, setItems ]=useState( list );
+  const [ items, setItems ]=useState( JSON.parse( localStorage.getItem( 'MovieList' ) )||[] );
+
   const [ newItem, setNewItem ]=useState( '' );
 
   const [ search, setSearch ]=useState( '' );
+
+  // Function Is Asynchronous
+  // Effects
+  useEffect( () =>
+  {
+    localStorage.setItem( 'MovieList', JSON.stringify( items ) )  // correct bacuse 1st Everything loads then items got form LS
+  }, [ items ] ) /// Loads Each Time When Page Loads 
+  // useEffect(()=>....,[])   Runs Only On Page Loaded   and [] is Like Dependancy
+
+
+  console.log( 'After useEffect' )
+
   // Handling Functions
 
-  const setAndSaveItems=( newItems ) =>
-  {
-    setItems( newItems );
-    localStorage.setItem( 'MovieList', JSON.stringify( newItems ) )
-  }
+  // const setAndSaveItems=( newItems ) =>
+  // {
+  //   setItems( newItems );
+  // }
   const addItem=( item ) =>
   {
     const id=items.length? items[ items.length-1 ].id+1:1;
     const myNewItem={ id: id, checked: false, item: item };
     const listItems=[ ...items, myNewItem ];
-    setAndSaveItems( listItems )
+    setItems( listItems )
   }
   const handleCheck=( key ) =>
   {
     const listItems=items.map( item => item.id===key? { ...item, checked: !item.checked }:item );
-    setAndSaveItems( listItems )
+    setItems( listItems );
   }
   const handleDelete=( key ) =>
   {
     const listItems=items.filter( item => item.id!=key );
-    setAndSaveItems( listItems )
+    setItems( listItems )
   }
   const handleSubmit=( e ) =>
   {
@@ -113,6 +134,7 @@ const App=() =>
         length={ items.length }
         search={ search }
         setSearch={ setSearch } />
+      {/* Its A Custom Element  */ }
       <Content
         items={ items.filter( item => ( item.item )
           .toLowerCase()

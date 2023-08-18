@@ -1,8 +1,7 @@
 import React from "react";
-import './index.css';
-import './dave.css';
+import '../css/index.css';
+import '../css/dave.css';
 import ItemsList from './ItemsList';
-
 const styles1={
         padding: '.8rem',
         borderRadius: '.6rem',
@@ -12,7 +11,7 @@ const Content=( { items, handleCheck, handleDelete } ) => ( <main className='G-L
         <article className='G-Item'>
                 { ( items.length )? (
                         <ItemsList
-                                items={ Array.from( items ) }
+                                items={ items }
                                 handleCheck={ handleCheck }
                                 handleDelete={ handleDelete } />
                 ):
@@ -20,6 +19,9 @@ const Content=( { items, handleCheck, handleDelete } ) => ( <main className='G-L
                                 <h2>List Is Empty</h2>
                         )
                 }
+                {/* <colorProject
+                        color={ color }
+                        setColor={ setColor } /> */}
         </article>
 </main>
 );

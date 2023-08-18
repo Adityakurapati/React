@@ -1,6 +1,6 @@
 import React from "react";
-import './index.css';
-import './dave.css';
+import '../css/index.css';
+import '../css/dave.css';
 import ListItems from './ListItems';
 
 const ItemsList=( { items, handleCheck, handleDelete } ) => (
