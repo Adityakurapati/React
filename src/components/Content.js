@@ -7,7 +7,8 @@ const styles1={
         borderRadius: '.6rem',
         marginBottom: '0.9rem'
 };
-const Content=( { items, handleCheck, handleDelete } ) => ( <main className='G-List'>
+// <> Fragment 
+const Content=( { items, handleCheck, handleDelete } ) => ( <>
         <article className='G-Item'>
                 { ( items.length )? (
                         <ItemsList
@@ -23,7 +24,7 @@ const Content=( { items, handleCheck, handleDelete } ) => ( <main className='G-L
                         color={ color }
                         setColor={ setColor } /> */}
         </article>
-</main>
+</>
 );
 export default Content;
 

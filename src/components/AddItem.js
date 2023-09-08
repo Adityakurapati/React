@@ -8,7 +8,7 @@ const AddItem=( { newItem, setNewItem, handleSubmit } ) =>
           <form onSubmit={ handleSubmit }> {/** Event Is implicitly Passed  */ }
                {/* For Is Reserved Word In JSX And JSX Is Js */ }
                <div className='input-group' >
-                    <label htmlFor='' className="user-label"> ADD Item </label>
+                    {/* <label htmlFor='' className="user-label"> ADD Item </label> */ }
                     <input
                          autoFocus
                          type='text'
@@ -21,7 +21,7 @@ const AddItem=( { newItem, setNewItem, handleSubmit } ) =>
                          onChange={ ( e ) => setNewItem( e.target.value ) } />
                </div>
                <div className='input-group' >
-                    <label htmlFor='' className="user-label"> ADD Item </label>
+                    {/* <label htmlFor='' className="user-label"> ADD Item </label> */ }
                     <input
                          type='text'
                          placeholder='Image Link'

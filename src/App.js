@@ -7,10 +7,16 @@ import Footer from './components/Footer';
 import AddItem from './components/AddItem';
 import { useState, useEffect } from 'react';
 
+// Hoooks 
+
+// useState('defaultValue');
+// useRef();
+// UseEffect(()=>{},[dependancy])
 
 //  Snipet - Ctrl + Alt + R
 
 // Functional Components  => Components Was Created Broke Down Into Functions And All Components Are Injected Into DOm 
+
 // JSX = JS In XML (Allows To Put javascript Expression Into Code ) 
 // JSX Render as String => {[1,2,3]}.. 123
 // Object  Was Not Rendered In JSX and Booleans Was Same 
@@ -75,30 +81,79 @@ const App=() =>
     },
   ];
 
+  const API_URL="http://localhost:3500/items";
+
   // states 
+  // [item,setItem] Is Destruct From useState items is the Current State (getter) and setItem(setter)
+
   // const [ items, setItems ]=useState( list );
-  const [ items, setItems ]=useState( JSON.parse( localStorage.getItem( 'MovieList' ) )||[] );
+  const [ items, setItems ]=useState( [] );
+  // [] short circuit bcoz avoid problem (filter on array) for new user
 
   const [ newItem, setNewItem ]=useState( '' );
 
   const [ search, setSearch ]=useState( '' );
 
+  const [ fetchError, setFetchError ]=useState( null );
+
+  const [ isLoading, setIsLoading ]=useState( true ); // When App Loads It Initially True 
+
   // Function Is Asynchronous
   // Effects
+
+  // if We search Item Then Complete Script Will Be Rerendered But When Only Items was Changed Then Only Then The Asynchronous Effect Function Will Be Called 
+
   useEffect( () =>
   {
-    localStorage.setItem( 'MovieList', JSON.stringify( items ) )  // correct bacuse 1st Everything loads then items got form LS
-  }, [ items ] ) /// Loads Each Time When Page Loads 
+    const fetchItems=async () =>
+    {
+      try
+      {
+        const response=await fetch( API_URL );// By Default It  Makes Get Request
+        if ( !response.ok ) // response.ok => 200 code 
+          throw new Error( 'Did Not Received Expected Data ' );
+
+        const listItems=await response.json();
+        console.log( listItems );
+        setItems( listItems );
+        setFetchError( null ); // Setting FetchError Back To Null
+      } catch ( err )
+      {
+        console.log( err.stack );
+        setFetchError( err.message );
+      } finally
+      {
+        setIsLoading( false );
+        // Executes Whether We Received Error Or WE Got Expected Data 
+      }
+    }
+
+
+
+    setTimeout( () =>
+    {
+      // IIFE(Instantly Invoked Function Expression)
+      ( async () =>
+      {
+        await fetchItems();
+      } )()
+    }, 2000 )
+    // localStorage.setItem( 'MovieList', JSON.stringify( items ) )  // correct bacuse 1st Everything loads then items got form LS
+  }, [] )
+
+  // }, [ items ] ) /// Loads Each Time When items changes  
   // useEffect(()=>....,[])   Runs Only On Page Loaded   and [] is Like Dependancy
+  // useEffect(()=>{ ... })   Runs Each Time When Components were Rendered  (nothing Special)
 
 
-  console.log( 'After useEffect' )
+  console.log( 'After useEffect' );
 
   // Handling Functions
 
   // const setAndSaveItems=( newItems ) =>
   // {
   //   setItems( newItems );
+  //   localStorage.setItem(JSON.stringify(newItems);
   // }
   const addItem=( item ) =>
   {
@@ -109,7 +164,8 @@ const App=() =>
   }
   const handleCheck=( key ) =>
   {
-    const listItems=items.map( item => item.id===key? { ...item, checked: !item.checked }:item );
+    const listItems=items.map( item => item.id===key? { ...item, checked: !item.checked }:item );// map create a new array 
+
     setItems( listItems );
   }
   const handleDelete=( key ) =>
@@ -119,8 +175,9 @@ const App=() =>
   }
   const handleSubmit=( e ) =>
   {
-    e.preventDefault();
-    if ( !newItem ) return
+    e.preventDefault();   // Avoiding From Reloading Page on Submit 
+    if ( !newItem ) return  // Check That NewItem Value Is not empty even the input field is required 
+
     // Add New Item
     addItem( newItem );
     setNewItem( '' );
@@ -135,15 +192,19 @@ const App=() =>
         search={ search }
         setSearch={ setSearch } />
       {/* Its A Custom Element  */ }
-      <Content
-        items={ items.filter( item => ( item.item )
-          .toLowerCase()
-          .includes( search.toLowerCase() ) )
-        }
-        // setItems={ setItems }
-        handleCheck={ handleCheck }
-        handleDelete={ handleDelete }
-      />
+      <main>
+        { isLoading && <center><div class="lds-heart"><div></div></div></center> }
+        { fetchError && <center style={ { color: 'red' } }>`Error : ${ fetchError }`</center> }
+        { !fetchError && !isLoading && <Content
+          items={ items.filter( item => ( item.item )
+            .toLowerCase()
+            .includes( search.toLowerCase() ) )
+          }
+          // setItems={ setItems }
+          handleCheck={ handleCheck }
+          handleDelete={ handleDelete }
+        /> }
+      </main>
       <AddItem
         newItem={ newItem }
         setNewItem={ setNewItem }

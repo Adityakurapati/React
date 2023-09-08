@@ -9,10 +9,13 @@ const ListItems=( { item, handleCheck, handleDelete } ) => (
                     onChange={ () => handleCheck( item.id ) }
                     checked={ item.checked } />
                <label
-                    onDoubleClick={ () => handleCheck( item.id ) }
                     style={
                          ( item.checked )? { textDecoration: 'line-through' }:null
-                    }>
+                    }
+                    onDoubleClick={ () => handleCheck( item.id ) }
+               >
+
+
                     { item.item }
                </label>
 

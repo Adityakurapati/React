@@ -1,0 +1,4 @@
+react-icons-D/--save  // Dev Dependancy 
+npm i colornames -S // Production Dependancy
+npm i react-icons--save-prod // Production Dependancy
+npx json-server -p 3500 -w data/db.json 
