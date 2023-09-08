@@ -6,6 +6,7 @@ import Content from './components/Content';
 import Footer from './components/Footer';
 import AddItem from './components/AddItem';
 import { useState, useEffect } from 'react';
+import apiRequest from './components/apiRequest';
 
 // Hoooks 
 
@@ -155,12 +156,25 @@ const App=() =>
   //   setItems( newItems );
   //   localStorage.setItem(JSON.stringify(newItems);
   // }
-  const addItem=( item ) =>
+  const addItem=async( item ) =>
   {
     const id=items.length? items[ items.length-1 ].id+1:1;
     const myNewItem={ id: id, checked: false, item: item };
     const listItems=[ ...items, myNewItem ];
     setItems( listItems )
+
+    //Rest Api
+    const postOptions = {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(myNewItem)
+    }
+
+    // Sending Post Request 
+    const result = await apiRequest(API_URL,postOptions);
+    if(result) setFetchError(result)
   }
   const handleCheck=( key ) =>
   {
