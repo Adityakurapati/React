@@ -115,7 +115,7 @@ const App=() =>
           throw new Error( 'Did Not Received Expected Data ' );
 
         const listItems=await response.json();
-        console.log( listItems );
+        // console.log( listItems );
         setItems( listItems );
         setFetchError( null ); // Setting FetchError Back To Null
       } catch ( err )
@@ -156,7 +156,7 @@ const App=() =>
   //   setItems( newItems );
   //   localStorage.setItem(JSON.stringify(newItems);
   // }
-  const addItem=async( item ) =>
+  const addItem=async ( item ) =>
   {
     const id=items.length? items[ items.length-1 ].id+1:1;
     const myNewItem={ id: id, checked: false, item: item };
@@ -164,28 +164,52 @@ const App=() =>
     setItems( listItems )
 
     //Rest Api
-    const postOptions = {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
+    const postOptions={
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
       },
-      body:JSON.stringify(myNewItem)
+      body: JSON.stringify( myNewItem )
     }
 
     // Sending Post Request 
-    const result = await apiRequest(API_URL,postOptions);
-    if(result) setFetchError(result)
+    const result=await apiRequest( API_URL, postOptions );
+    if ( result ) setFetchError( result )
   }
-  const handleCheck=( key ) =>
+  const handleCheck=async ( key ) =>
   {
     const listItems=items.map( item => item.id===key? { ...item, checked: !item.checked }:item );// map create a new array 
 
     setItems( listItems );
+
+    // Rest Api
+    // We Can Use ListItems because We Already Updated That In useEffect
+
+    const myItem=items.filter( item => item.id===key );
+    const updateOptions={
+      method: "PATCH",
+      header: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify( { checked: myItem[ 0 ].checked } ),
+    }
+    const reqUrl=`${ API_URL }/${ key }`;
+    const result=await apiRequest( reqUrl, updateOptions );
+    if ( result ) setFetchError( result );
   }
-  const handleDelete=( key ) =>
+  const handleDelete=async ( key ) =>
   {
     const listItems=items.filter( item => item.id!=key );
-    setItems( listItems )
+    setItems( listItems );
+
+    // Working With Rest API
+    const deleteOptions={ method: 'DELETE' }
+
+
+    const reqUrl=`${ API_URL }/${ key }`;
+
+    const result=await apiRequest( reqUrl, deleteOptions );
+    if ( result ) setFetchError( result )
   }
   const handleSubmit=( e ) =>
   {
@@ -207,9 +231,9 @@ const App=() =>
         setSearch={ setSearch } />
       {/* Its A Custom Element  */ }
       <main>
-        { isLoading && <center><div class="lds-heart"><div></div></div></center> }
-        { fetchError && <center style={ { color: 'red' } }>`Error : ${ fetchError }`</center> }
-        { !fetchError && !isLoading && <Content
+        { isLoading&&<center><div class="lds-heart"><div></div></div></center> }
+        { fetchError&&<center style={ { color: 'red' } }>`Error : ${ fetchError }`</center> }
+        { !fetchError&&!isLoading&&<Content
           items={ items.filter( item => ( item.item )
             .toLowerCase()
             .includes( search.toLowerCase() ) )
